@@ -90,8 +90,8 @@ async def create_user(
     user: UserCreate,
     db: Annotated[Session, Depends(get_db)]):
     result = db.execute(select(models.User).where(
-            models.User.username == user.username 
-            or models.User.username == user.username
+            (models.User.username == user.username) 
+            | (models.User.username == user.username)
             )
         )
     
