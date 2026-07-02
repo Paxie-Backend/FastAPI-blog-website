@@ -153,10 +153,7 @@ async def create_user(
             detail= "User already exists",
         )
     
-    new_user = models.User(
-        username=user.username,
-        email=user.email
-        )
+    new_user = models.User(**user.model_dump())
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
@@ -247,12 +244,7 @@ def create_post(
             detail="User not found"
         )
     
-    new_post = models.Post(
-        title=post.title,
-        content=post.content,
-        user_id=post.user_id
-        )
-    
+    new_post = models.Post(**post.model_dump())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
