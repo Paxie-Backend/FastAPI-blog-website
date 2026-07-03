@@ -22,6 +22,7 @@ async def get_posts(db: Annotated[AsyncSession, Depends(get_db)]):
     result = await db.execute(
         select(models.Post)
         .options(selectinload(models.Post.author))
+        .order_by(models.Post.date_posted.desc())
         )
     
     posts = result.scalars().all()
@@ -140,7 +141,7 @@ async def update_post_partial(
     return post
 
 @router.delete(
-    "/api/v1/posts/{post_id}",
+    "/{post_id}",
     status_code=status.HTTP_204_NO_CONTENT)
 async def delete_post(
     post_id: int,
