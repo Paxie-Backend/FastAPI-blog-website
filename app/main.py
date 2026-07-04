@@ -37,8 +37,8 @@ app.include_router(v1_posts.router, prefix="/api/posts", tags=["posts"])
 
 
 
-@app.get("/v1", include_in_schema=False, name="home")
-@app.get("/v1/posts", include_in_schema=False, name="posts")
+@app.get("/", include_in_schema=False, name="home")
+@app.get("//posts", include_in_schema=False, name="posts")
 async def home(
     request: Request,
     db: Annotated[AsyncSession, Depends(get_db)]):
@@ -56,7 +56,7 @@ async def home(
             "posts": posts, "title": "Home"}
         )
 
-@app.get("/v1/posts/{post_id}", include_in_schema=False)
+@app.get("//posts/{post_id}", include_in_schema=False)
 async def post_page(
     request: Request,
     post_id: int,
@@ -119,7 +119,7 @@ async def user_posts_page(
         {"posts": posts, "user": user, "title": f"{user.username}'s Posts"},
     )
 
-@app.post("/login", include_in_schema=False)
+@app.get("/login", include_in_schema=False)
 def login_page(req: Request):
     return templates.TemplateResponse(
         req,
@@ -127,7 +127,7 @@ def login_page(req: Request):
         {"title": "Login"}
     )
 
-@app.post("/register", include_in_schema=False)
+@app.get("/register", include_in_schema=False)
 def register_page(req: Request):
     return templates.TemplateResponse(
         req,

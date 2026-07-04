@@ -183,7 +183,7 @@
         // 204 = No Content (success)
         if (response.status === 204) {
           // Post is gone, redirect to home page
-          window.location.href = "/v1";
+          window.location.href = "/";
         } else {
           const error = await response.json();
           document.getElementById("errorMessage").textContent =
